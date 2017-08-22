@@ -89,4 +89,15 @@
         ComboBox1.Items.AddRange(folderName.ToArray)
 
     End Sub
+
+    Private Sub TextBox1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox1.KeyPress
+        Dim KeyAsciiString As String
+        KeyAsciiString = e.KeyChar
+
+        If KeyAsciiString = "/" Or KeyAsciiString = "\" Or KeyAsciiString = ":" Or KeyAsciiString = "*" Or KeyAsciiString = "?" Or KeyAsciiString = """" Or KeyAsciiString = "<" Or KeyAsciiString = ">" Or KeyAsciiString = "|" Then
+            MsgBox("This key is not allowed: " & KeyAsciiString)
+            e.Handled = True
+        End If
+    End Sub
+
 End Class

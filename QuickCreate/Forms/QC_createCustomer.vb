@@ -11,10 +11,12 @@
 
         If client_name = "" Then
             MsgBox("You need to enter a Company Name before continuing.")
+            Exit Sub
         Else
             CheckNames()
             If client_exists = True Then
                 MsgBox("This company already exists.")
+                Exit Sub
             Else
                 FolderPathMain = "F:\" & client_name
                 MkDir(FolderPathMain)
@@ -26,8 +28,10 @@
                 MsgBox("The Customer Folder has been created.")
 
                 TextBox1.Text = ""
+                Exit Sub
             End If
         End If
+
     End Sub
 
     Private Sub CheckNames()
@@ -42,14 +46,13 @@
     End Sub
 
     Private Sub TextBox1_KeyPress(sender As Object, e As KeyPressEventArgs) Handles TextBox1.KeyPress
-        Dim KeyAscii As String
+        Dim KeyAsciiString As String
+        KeyAsciiString = e.KeyChar
 
-        KeyAscii = 0
-
-        Select Case KeyAscii
-            Case 47, 92, 58, 42, 63, 34, 60, 62, 124
-                MsgBox("Invalid character. The following character is not allowed: " & Chr(KeyAscii))
-                KeyAscii = 0
-        End Select
+        If KeyAsciiString = "/" Or KeyAsciiString = "\" Or KeyAsciiString = ":" Or KeyAsciiString = "*" Or KeyAsciiString = "?" Or KeyAsciiString = """" Or KeyAsciiString = "<" Or KeyAsciiString = ">" Or KeyAsciiString = "|" Then
+            MsgBox("This key is not allowed: " & KeyAsciiString)
+            e.Handled = True
+        End If
     End Sub
+
 End Class
